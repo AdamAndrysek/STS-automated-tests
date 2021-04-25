@@ -3,7 +3,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Linq;
-using System.Threading;
 using WebDriverManager.DriverConfigs.Impl;
 
 namespace STS_automated_tests
@@ -29,7 +28,6 @@ namespace STS_automated_tests
 
         private IWebElement TypZakladowDropdownList => driver.FindElement(By.Id("types"));
         private IWebElement DyscyplinaDropdownList => driver.FindElement(By.Id("sports"));
-        private IWebElement PodgraDropdownList => driver.FindElement(By.Id("games"));
         private IWebElement LiveTab => driver.FindElement(By.XPath("//li[@data-value='live']"));
         private IWebElement SiatkowkaPlazowaTab => driver.FindElement(By.XPath("//li[@data-value='SIATKÓWKA PLAŻOWA']"));
 
@@ -56,7 +54,7 @@ namespace STS_automated_tests
             new WebDriverManager.DriverManager().SetUpDriver(new ChromeConfig());
             driver = new ChromeDriver();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
-            driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(10);
+            driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(12);
             driver.Navigate().GoToUrl("https://www.sts.pl/");
             driver.Manage().Window.Maximize();
 
@@ -81,7 +79,7 @@ namespace STS_automated_tests
             CloseConsents();
             Login(invalidEmail, invalidPassword);
             Assert.DoesNotThrow(()=>driver.FindElement(By.ClassName("modal–login")), "The \"Wrong password\" window is not visible");
-            // Use this assertion if you see the reCAPTCHA window instead of the window about wrong password. If so, remember to comment assertion in the line 83 and uncomment the one in line 85
+            // Use the assertion below if you see the reCAPTCHA window instead of the window about wrong password. If so, remember to comment assertion in the line 81 and uncomment the one in line 83
             // Assert.DoesNotThrow(() => driver.FindElement(By.Id("_hjRemoteVarsFrame")), "There's no reCAPTCHA visible frame");
         }
 
